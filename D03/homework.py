@@ -15,5 +15,5 @@ V50db = db2V1(50)
 print('30db\'s V1 is %d' % V30db)
 print('50db\'s V1 is %d' % V50db)
 
-print('30 分貝的聲壓會是 50 分貝的幾倍 = {:.3f}'.format(V30db/V50db) )
+print('30 分貝的聲壓會是 50 分貝的幾倍 = %s' % (V30db/V50db) )
 
