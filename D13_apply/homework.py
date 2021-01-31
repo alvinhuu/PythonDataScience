@@ -24,3 +24,13 @@ print(newscore.values[5])
 
 # 承上題，加分後各科班平均變多少
 print('加分後各科班平均變多少 \n%s' % newscore.mean())
+
+# 範例程式臨摹
+print('--------------------------')
+Exdf = pd.DataFrame([[1,56,66,70], [2,90,45,34], [3,45,32,55], [4,70,77,89], [5,56,80,70], [6,60,54,55], [7,45,70,79], [8,34,77,76], [9,25,87,60], [10,88,40,43]],columns=['student_id','math_score','english_score','chinese_score'])
+Exdf = Exdf.set_index('student_id')
+
+print(Exdf.mean(axis=1)[6])
+print(Exdf.mean(axis=1).median())
+print(Exdf.apply(lambda x: x**(0.5)*10))
+print(Exdf.apply(lambda x: x**(0.5)*10).values[5])  #values uses old index rule
