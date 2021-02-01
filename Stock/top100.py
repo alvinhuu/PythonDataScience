@@ -1,8 +1,9 @@
 import pandas as pd  
 import numpy as np
 import urllib3
-from bs4 import BeautifulSoup
+# from bs4 import BeautifulSoup
 import yfinance as yf
+import matplotlib.pyplot as plt
 
 # 參考網站
 # https://medium.com/ai%E8%82%A1%E4%BB%94/%E7%94%A8-python-%E6%89%93%E9%80%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E8%82%A1%E5%B8%82%E8%B3%87%E6%96%99%E5%BA%AB-%E7%BE%8E%E8%82%A1%E7%AF%87-e3e896659fd6
@@ -39,15 +40,15 @@ def big10(x):
     L = ( A>B and P > 0.1)
     return L
 
-newlist =  list( filter(big10, data.values) )
-d = np.row_stack(newlist)
-dataset = pd.DataFrame({'Symbol': d[:, 0], 'Name': d[:, 1], 'price': d[:, 2], 'Change': d[:, 3], 'Change%': d[:, 4], 'TTM': d[:, 8], 'Vol': d[:, 5], 'avgVol(3m)': d[:, 6] })
+def setFunc( func ):
+    newlist =  list( filter(func, data.values) )
+    d = np.row_stack(newlist)
+    return pd.DataFrame({'Symbol': d[:, 0], 'Name': d[:, 1], 'price': d[:, 2], 'Change': d[:, 3], 'Change%': d[:, 4], 'TTM': d[:, 8], 'Vol': d[:, 5], 'avgVol(3m)': d[:, 6] })
 
 # dataframe = pd.DataFrame.from_records(d)
 # dataset.boxplot()
-print(dataset)
+print(setFunc(big10))
+print(setFunc(sort3to10))
+
 # data=data[np.argsort(data[:,0])]
 # stk_list = data.Symbol
-
-# Yahoo! module
-#https://pypi.org/project/yfinance/
