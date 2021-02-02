@@ -5,5 +5,6 @@ score_df = pd.DataFrame([[1,50,80,70,'boy',1],[2,60,45,50,'boy',2],[3,98,43,55,'
 
 # 題目：運用分數資料重新建構資料，將索引(index)依序改為 sex、class、student_id，
 # 欄位依序改成chinese_score、english_score、math_score
-score_df.set_index('sex')
-print(score_df)
+newlist = score_df.melt(id_vars=['sex','class','student_id'])
+print(newlist)
+print( newlist.pivot(index=['sex','class','student_id'], columns='variable', values='value') )
