@@ -9,8 +9,10 @@ import matplotlib.pyplot as plt
 # Yahoo! module
 #https://pypi.org/project/yfinance/
 # Get the data of the stock AAPL 
-data = yf.download('QS','2020-01-01','2021-01-01') 
-print(data) 
+print( yf.download('QS','2020-01-01','2021-03-01') )
+print( yf.download('ISR','2020-01-01','2021-03-01') )
+print( yf.download('SENS','2020-01-01','2021-03-01') )
+print( yf.download('NVIV','2020-01-01','2021-03-01') ) 
 # # Plot the close price of the AAPL 
 # data.Close.plot() 
 # plt.show() 
