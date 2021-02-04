@@ -10,7 +10,9 @@ score_df = pd.DataFrame([[1,50,80,70,'boy',1],[2,60,45,50,'boy',2],[3,98,43,55,'
 print(  score_df.groupby(['class']).agg(['max','min'])  )
 
 # 找出數學班平均最高的班級？
-print( score_df.groupby(['class']).math_score.agg(['max']))
+# print( score_df.groupby(['class']).math_score.agg(['max']))
+print( score_df.groupby(['class']).math_score.mean() )
 
 # 分析全校女生與男生國文平均差幾分？
-print( score_df.groupby(['sex']).chinese_score.agg(['mean']))
+print( A:=score_df.groupby(['sex']).chinese_score.agg(['mean']))
+print( '全校女生與男生國文平均差幾分 %f' % (float(A.values[0])-float(A.values[1]) ) ) 
