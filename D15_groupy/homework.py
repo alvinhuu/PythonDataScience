@@ -7,6 +7,10 @@ score_df = pd.DataFrame([[1,50,80,70,'boy',1],[2,60,45,50,'boy',2],[3,98,43,55,'
     columns=['student_id','math_score','english_score','chinese_score','sex','class'])
 
 # 找出全年級各科成績最高分與最低分？
+print(  score_df.groupby(['class']).agg(['max','min'])  )
 
 # 找出數學班平均最高的班級？
+print( score_df.groupby(['class']).math_score.agg(['max']))
+
 # 分析全校女生與男生國文平均差幾分？
+print( score_df.groupby(['sex']).chinese_score.agg(['mean']))
