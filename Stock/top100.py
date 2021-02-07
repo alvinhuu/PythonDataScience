@@ -4,6 +4,8 @@ import urllib3
 # from bs4 import BeautifulSoup
 import yfinance as yf
 import matplotlib.pyplot as plt
+import time
+timestr = time.strftime("%Y%m%d-%H%M%S")
 
 # 參考網站
 # https://medium.com/ai%E8%82%A1%E4%BB%94/%E7%94%A8-python-%E6%89%93%E9%80%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E8%82%A1%E5%B8%82%E8%B3%87%E6%96%99%E5%BA%AB-%E7%BE%8E%E8%82%A1%E7%AF%87-e3e896659fd6
@@ -25,6 +27,13 @@ def Money2int(x):
     if x.isdigit():
         return float(x)
     return (float(x[:-1]) * 10 ** m[x[-1]] )
+
+def over3(x):
+    A = Money2int(x[5])
+    B = Money2int(x[6])
+    P = p2f(x[4])
+    L = ( A>B and P>=0.03 )
+    return L
 
 def sort3to10(x):
     A = Money2int(x[5])
@@ -50,5 +59,8 @@ def setFunc( func ):
 print(setFunc(big10))
 print(setFunc(sort3to10))
 
+Over3 = setFunc(over3)
+print(timestr)
+Over3.to_excel('over3.xlsx', sheet_name='A'+timestr)
 # data=data[np.argsort(data[:,0])]
 # stk_list = data.Symbol
