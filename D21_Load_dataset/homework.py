@@ -4,7 +4,7 @@ import seaborn as sns
 from matplotlib import pyplot as plt
 
 # 取得鳶尾花資料集
-df = sns.load_dataset('iris')
+# df = sns.load_dataset('iris')
 # 箱形圖顯示了數據的總體分布，同時繪製了異常值的數據點。這個物理點讓它們的特定值在樣本之間容易被識別和比較。
 # sns.boxplot(data = df, orient = "h")
 # 當一個或兩個正在研究的變數是分類的時，我們使用像條帶線()、swarmplot()等的圖。
@@ -32,13 +32,43 @@ df = sns.load_dataset('iris')
 
 # FacetGrid 類有助於可視化一個變數的分佈，以及使用多個面板在數據集子集中分別顯示多個變數之間的關係
 # 作業：取得另一個 dataset：titanic
+# 取得資料集
+df = sns.load_dataset('titanic')
 df.info()
 # 做箱形圖
-sns.boxplot(data = df, orient = "h")
+sns.barplot(x = "sex", y = "survived", hue = "class", data = df)
+plt.show()
+# 在上面的示例中,我們可以看到每個class中男性和女性的平均存活率。從情節中,我們可以理解,女性存活人數比男性多。在男性和女性中,更多的存活率來自頭等艙。
+
 # 利用 FacetGrid 繪圖並分析
-g = sns.FacetGrid(data = df, col='species',hue = 'species')
-g.map(plt.plot, 'X', 'Y1')
+# 瞭解性別在各艙等的分布的存活率, 用 survived 跟 sex 拆開
+g = sns.FacetGrid(df, col = "survived")
+g.map(plt.hist,"sex")
+plt.show()
+#先檢視各艙位存活人數，此時可以使用groupby函數進行分類，
+#其中 survived＝1表示存活，survived＝0表示死亡，將survived加總即為各艙等生存人數。
+
+df.groupby('pclass').survived.sum()
+
+#加上性別
+survived=df.groupby(['pclass','sex']).survived.sum()
+survived.plot(kind='bar')
+#使用pd.crosstab函數繪製交叉表，交叉表可以很直觀的依據艙位等級及性別來查看存活人數及死亡人數。
+#繪製堆疊條形圖，x軸代表依據艙等分成男性及女性，y軸代表人數，其中藍色代表死亡人數，橘色代表存活人數。
+survived_counts = pd.crosstab([df.pclass, df.sex],df.survived)
+print( survived_counts )
+survived_counts.plot(kind='bar', stacked=True)
 plt.show()
 # 繪製小提琴圖 
-sns.violinplot(x="day", y="total_bill", hue="smoker", data=df, palette="muted",split=True)
+# 直接使用PANDAS dataframe, 當作參數
+#條形圖()顯示分類變數和連續變數之間的關係。數據以矩形條表示,其中條的長度表示該類別中數據的比例。
+sns.violinplot(data=survived_counts)
+plt.show()
+# 瞭解性別在各艙等的分布的存活率 
+g = sns.FacetGrid(df, col = "survived")
+g.map(plt.hist,"pclass")
+plt.show()
+
+h = sns.FacetGrid(df, col = "survived")
+h.map(plt.hist,"sex")
 plt.show()
