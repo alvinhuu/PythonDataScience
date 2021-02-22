@@ -47,9 +47,7 @@ g.map(plt.hist,"sex")
 plt.show()
 #先檢視各艙位存活人數，此時可以使用groupby函數進行分類，
 #其中 survived＝1表示存活，survived＝0表示死亡，將survived加總即為各艙等生存人數。
-
 df.groupby('pclass').survived.sum()
-
 #加上性別
 survived=df.groupby(['pclass','sex']).survived.sum()
 survived.plot(kind='bar')
@@ -69,6 +67,19 @@ g = sns.FacetGrid(df, col = "survived")
 g.map(plt.hist,"pclass")
 plt.show()
 
-h = sns.FacetGrid(df, col = "survived")
-h.map(plt.hist,"sex")
-plt.show()
+# 可以嘗試其他的參數對照組合
+
+# 0 survived
+# 1 pclass
+# 2 sex
+# 3 age
+# 5 parch
+# 6 fare
+# 7 embarked
+# 8 class
+# 9 who
+# 10 adult_male
+# 11 deck
+# 12 embark_town
+# 13 alive
+# 14 alone
