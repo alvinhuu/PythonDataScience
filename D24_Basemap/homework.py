@@ -14,15 +14,24 @@
 #Basemap 地理資訊圖
 # Basemap工具，它是mpl_toolkits包中的一個專門用於構建地理信息數據可視化的擴展庫。
 # Basemap工具在地理信息讀寫、坐標映射、空間坐標轉化與投影等方面做的要比geopandas更加成熟，它可以使用常規的地圖素材數據源（shp）作為底圖進行疊加繪圖，效果與精度控制比較方便
-# 導入開發套件
+# 載入套件
 from mpl_toolkits.basemap import Basemap
 import matplotlib.pyplot as plt
-# 新建地圖
-map = Basemap()
-#Basemap有很多屬性，這里全都使用默認?數
-# 畫圖
-map.drawcoastlines()
-# 顯示
+import numpy as np
+
+# 創建基本地圖。
+# 當 "projection" 參數為“ortho"時，所得圖位地球儀截面
+'''
+由此開始寫code 
+'''
+#設定圖形大小
+plt.figure(figsize=(5,5))
+
+#設定投影型態
+m=Basemap(projection='ortho',resolution=None,lat_0=50,lon_0=-100)
+
+#設定圖形顏色, 選用NASA 寶石藍輸出 
+m.bluemarble(scale=0.5)
+
+#秀圖
 plt.show()
-# 存
-plt.savefig('test.png')

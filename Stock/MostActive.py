@@ -60,7 +60,7 @@ def setFunc( func ):
     newlist =  list( filter(func, data.values) )
     if newlist:
         d = np.row_stack(newlist)
-        return pd.DataFrame({'Symbol': d[:, 0], 'Name': d[:, 1], 'price': d[:, 2], 'Change': d[:, 3], 'Change%': d[:, 4], 'TTM': d[:, 8], 'Vol': d[:, 5], 'avgVol(3m)': d[:, 6] }).sort_values(by=['Change%','Vol'], ascending=False)
+        return pd.DataFrame({'Symbol': d[:, 0], 'Name': d[:, 1], 'price': d[:, 2], 'Change': d[:, 3], 'Change%': d[:, 4], 'MarketCap': d[:, 7], 'Vol': d[:, 5], 'avgVol(3m)': d[:, 6] }).sort_values(by=['Change%','MarketCap','Vol'], ascending=False)
     else:
         return 'None in list'
 
