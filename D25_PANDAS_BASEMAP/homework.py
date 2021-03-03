@@ -50,7 +50,7 @@ cb = m.colorbar(im,"right", size="5%", pad='2%')
 ax.set_title('ETOPO5 Topography - Lambert Conformal Conic')
 plt.show()
 
-from __future__ import (absolute_import, division, print_function)
+# from __future__ import (absolute_import, division, print_function)
 
 from mpl_toolkits.basemap import Basemap
 import numpy as np
