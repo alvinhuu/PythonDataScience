@@ -6,26 +6,23 @@ from scipy import stats
 import math
 import statistics
 
-'''
-# 離散均勻分配 (Discrete Uniform Distribution)
-# 前提：其中有限個數值擁有相同的機率。
-'''
-# 1.定義離散均勻分配的基本資訊
+# 離散均勻分配( Discrete Uniform Distribution )
+# 伯努利分配( Bernoulli Distribution )
+# 二項分配(Binomial Distribution)
+# 今天我們透過作業中的問題，回想今天的內容吧!
+# 丟一個銅板，丟了100次，出現正面 50 次的機率有多大。
 
-low=1 
-high=7
-r = np.arange(low,high)
-# 2.計算離散均勻分配的概率質量分佈 (probability mass function)
+'''
+你的答案 
+'''
+# 這是 bermoulli分配
+p = 0.5 # 假設是公平硬幣
+n = 100  # 重複實驗 100次,
+r = 50 # 計算出現50次正面
+
+
+# 2.計算二項分佈的概率質量分佈 (probability mass function)
 # 之所以稱為質量，是因為離散的點
-# 產生 x 軸的點
-#r = np.arange(stats.randint.ppf(0.01, low, high),
-#              stats.randint.ppf(0.99, low, high),1)
-print(r)
 # P(X=x) --> 是機率
-probs = stats.randint.pmf(r,low,high)
+probs = stats.binom.pmf(r, n, p)
 print(probs)
-plt.bar(r, probs)
-plt.ylabel('P(X=x)')
-plt.xlabel('x')
-plt.title('pmf of DU(1,6)')
-plt.show()
