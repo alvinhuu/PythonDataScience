@@ -1,30 +1,43 @@
+from numpy.random import normal,uniform
+from numpy.random import seed
 import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns
 import pandas as pd
 from scipy import stats
 import math
-import statistics
+import pylab
+from IPython import get_ipython
+ipy = get_ipython()
+if ipy is not None:
+    ipy.run_line_magic('matplotlib', 'inline')
+# %matplotlib inline
 
+## Q1:計算標準常態分配，小於1的機率有多大?
+## 常態分配的計算
+# 計算標準常態分配記Ｘ　介於 1,-1的比例
+mu=0
+sigma=1
+b=  stats.norm.cdf(1,mu, sigma)
+print("P(Z<1)=",b)
 
-# 今天學到五種分配，包含，
-# 離散均勻分配( Discrete Uniform Distribution )
-# 伯努利分配( Bernoulli Distribution )
-# 二項分配(Binomial Distribution)
-# 負二項分配(Negative Binomial Distribution)
-# 超幾何分配(Hypergeometric Distribution)
-# 今天我們透過作業中的問題，回想今天的內容吧!
+## Q2:計算標準常態分配，大於1，小於 -1 的機率有多大?
+## 先算 p(<-1X<1)，再算  P(X>1 or X<-1)
+mu=0
+sigma=1
+b=  stats.norm.cdf(1,mu, sigma)
+a=  stats.norm.cdf(-1,mu, sigma)
+print("P(Z>1 or Z<-1)=",1-(b-a))
 
-# Q1: 大樂透的頭獎，你必須從49個挑選出 6 個號碼，
-# 且這六個號碼與頭獎的六個號碼一致，頭獎的機率是屬於哪一種分配?
-# library
+## Q3: X~N(2,4),x 服從常態分配，平均數為2,變異數為 4，計算 X小於 6 的機率有多大?
+#算法1
+mu=0
+sigma=1
+b=  stats.norm.cdf(2,mu, sigma)
+print("P(Z<2)=",b)
 
-print('''Q1: 大樂透的頭獎，你必須從49個挑選出 6 個號碼，
-可以想像成，大樂透中有49個號碼，6個是屬於開獎抽出的數字那一群，43個是不屬於開獎抽出的數字那一群，  
-那你挑的六組號碼，有多少個是落在開獎抽出的數字那一群?
- 屬於 超幾何分配.
-''')
-# Q2: 運用範例的 python 程式碼，計算大樂透的中頭獎機率?
-probs = stats.hypergeom.pmf(6,49,6,6)
-print("中頭獎的機率為==",probs)
-#Q3: 你覺得電腦簽注的中獎機率，和人腦簽注相比，哪一個機率高?
-print('以機率的角度來看，兩者一樣高')
+#算法2
+mu=2
+sigma=2 #( 4 要開根號)
+b= stats.norm.cdf(6,mu, sigma)
+print("P(X<6)=",b)
