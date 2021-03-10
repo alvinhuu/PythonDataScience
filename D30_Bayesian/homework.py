@@ -1,43 +1,35 @@
-from numpy.random import normal,uniform
-from numpy.random import seed
-import matplotlib.pyplot as plt
-import numpy as np
-import seaborn as sns
-import pandas as pd
-from scipy import stats
-import math
-import pylab
-from IPython import get_ipython
-ipy = get_ipython()
-if ipy is not None:
-    ipy.run_line_magic('matplotlib', 'inline')
-# %matplotlib inline
 
-## Q1:計算標準常態分配，小於1的機率有多大?
-## 常態分配的計算
-# 計算標準常態分配記Ｘ　介於 1,-1的比例
-mu=0
-sigma=1
-b=  stats.norm.cdf(1,mu, sigma)
-print("P(Z<1)=",b)
 
-## Q2:計算標準常態分配，大於1，小於 -1 的機率有多大?
-## 先算 p(<-1X<1)，再算  P(X>1 or X<-1)
-mu=0
-sigma=1
-b=  stats.norm.cdf(1,mu, sigma)
-a=  stats.norm.cdf(-1,mu, sigma)
-print("P(Z>1 or Z<-1)=",1-(b-a))
 
-## Q3: X~N(2,4),x 服從常態分配，平均數為2,變異數為 4，計算 X小於 6 的機率有多大?
-#算法1
-mu=0
-sigma=1
-b=  stats.norm.cdf(2,mu, sigma)
-print("P(Z<2)=",b)
+# 電影院裡通常都是成對情侶一起去看，假設電影院中有100 個人裡面，有 90 名男性和 10 名女性。
+# 在這 10 名女性裡，有一半的人有長髮（5 人），另一半有短髮（5人）；在 90 名男性當中，81 個人有短髮，9個人有長髮。
 
-#算法2
-mu=2
-sigma=2 #( 4 要開根號)
-b= stats.norm.cdf(6,mu, sigma)
-print("P(X<6)=",b)
+# Q1: 所以根據這個情況條件下，你會預測照片中的長髮是男性或女性(直覺回答)?
+print('男性')
+# Q2:以上圖資料，計算當你看到長髮時，是女生的機率?
+def bayes_theorem(p_a, p_b_given_a, p_b_given_not_a):
+    	# calculate P(not A)
+	not_a = 1 - p_a
+	# calculate P(B)
+	p_b = p_b_given_a * p_a + p_b_given_not_a * not_a
+	# calculate P(A|B)
+	p_a_given_b = (p_b_given_a * p_a) / p_b
+	return p_a_given_b
+ 
+# P(A): P(女生)
+# P(not A): P(男生)
+p_a = 0.1
+# P(B|A): P(長髮|女生)
+p_b_given_a = 0.5
+# P(B|not A): P(長髮|男生)
+p_b_given_not_a = 0.1
+# calculate P(A|B): P(女生|長髮)
+result = bayes_theorem(p_a, p_b_given_a, p_b_given_not_a)
+# summarize
+# P(女生|長髮)
+print('P(A|B) = {0}'.format(round(result * 100,2)))
+
+#所以看到長髮男生的可能性大於女生。
+
+# Q3:你的決策因為男生女生比例不同(先驗分配不同)，和投影片的結果相比，決策有沒有改變?
+print('透過貝式定理的運算，得出長髮男生的可能性大於女生，造成決策上的改變，所以以作業和投影片的例子可以看出，先驗分配的重要性，假設錯誤，決策可能就會錯誤。')
